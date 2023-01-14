@@ -41,6 +41,9 @@ const MessageSender = (props: any) => {
 
     return (
         <>
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;500;700&display=swap');
+            </style>
             {messages.map((m) => (
                 <M key={'message' + m.id} message={m} />
             ))}

@@ -1,9 +1,24 @@
+.avatar {
+    display: flex;
+    margin-top: 20px;
+    margin-left: 15px;
+    flex-direction: column;
+    align-items: center;
+    width: 50px;
+    margin-right: -20px;
+}
+
+.avatar img {
+    width: 50px;
+
+}
+
 .friendMessage {
 
 }
 
 .friendImageAndText {
-
+    display: flex;
 }
 
 .friendImageAndText img {
@@ -11,6 +26,17 @@
 }
 
 .friendText {
+    filter: drop-shadow(0px 5px 20px rgba(29, 33, 38, 0.03));
+    font-family: 'Montserrat';
+    padding-top: 20px;
+    padding-left: 12px;
+    line-height: 25px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #000000;
+    width: 450px;
+    height: 80px;
+    background-image: url("Rectangle 2.svg");
 
 }
 
@@ -19,13 +45,28 @@
 }
 
 .friendName {
-
+    font-family: 'Montserrat';
+    margin-left: 40px;
 }
 
 .friendMessageText {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    margin-left: 40px;
 
 }
 
 .friendTime {
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 12px;
+    padding-top: 5px;
+
+}
+
+.position {
+    display: flex;
+    justify-content: flex-start;
+    margin: 30px 0px;
 
 }

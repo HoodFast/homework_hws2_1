@@ -3,8 +3,13 @@
 }
 
 .hw {
+    max-width: 1150px;
+    height: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
 
 }
+
 
 .hwTitle {
 
