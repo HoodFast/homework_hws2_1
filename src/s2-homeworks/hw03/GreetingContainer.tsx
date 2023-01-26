@@ -28,7 +28,6 @@ export const pureOnEnter = (e: KeyboardEvent<HTMLInputElement>, addUser: ()=>voi
         addUser()
     }// если нажата кнопка Enter - добавить
 }
-
 // более простой и понятный для новичков
 // function GreetingContainer(props: GreetingPropsType) {
 
