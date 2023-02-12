@@ -9,7 +9,7 @@ import HW5 from "../s2-homeworks/hw05/HW5";
 function App() {
     return (
         <div className={s.App}>
-            <HW1/>
+            {/*<HW1/>*/}
             {/*/!*раскомментировать по ходу выполнения*!/*/}
             {/*<HW2/>*/}
             {/*<HW3/>*/}
