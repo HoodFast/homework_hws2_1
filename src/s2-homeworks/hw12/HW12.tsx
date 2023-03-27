@@ -22,7 +22,7 @@ const themes = [
 const HW12 = () => {
     // взять ид темы из редакса
 
-    const themeId = useSelector<AppStoreType,number>(state => state.theme)
+    const themeId = useSelector<AppStoreType,number>(state => state.theme.themeId)
     const dispatch = useDispatch()
     const change = (id: number) => { // дописать функцию
         dispatch(changeThemeId(id))
@@ -37,7 +37,6 @@ const HW12 = () => {
             <div id={'hw12-text'} className={s2.hwTitle}>
                 Homework #12
             </div>
-
             <div className={s2.hw}>
                 <SuperSelect
                     id={'hw12-select-theme'}
