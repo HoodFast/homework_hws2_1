@@ -7,7 +7,6 @@ import success200 from './images/200.svg'
 import error400 from './images/400.svg'
 import error500 from './images/500.svg'
 import errorUnknown from './images/error.svg'
-import {Loader} from "../hw10/Loader";
 
 /*
 * 1 - дописать функцию send
@@ -20,9 +19,10 @@ const HW13 = () => {
     const [text, setText] = useState('')
     const [info, setInfo] = useState('')
     const [image, setImage] = useState('')
-    const [isLoad, setIsLoad] = useState(false)
+
 
     const send = (x?: boolean | null) => () => {
+
         const url =
             x === null
                 ? 'https://xxxxxx.ccc' // имитация запроса на не корректный адрес
@@ -32,7 +32,7 @@ const HW13 = () => {
         setImage('')
         setText('')
         setInfo('...loading')
-        setIsLoad(true)
+
         axios
             .post(url, {success: x})
             .then((res) => {
@@ -43,27 +43,27 @@ const HW13 = () => {
 
             })
             .catch((e) => {
-                if (e.response.status === 400) {
-                    setCode('Ошибка 400!')
-                    setImage(error400)
-                    setText('Ты не отправил success в body вообще!')
-                    setInfo('ошибка 400 - обычно означает что скорее всего фронт отправил что-то не то на бэк!')
-                }
-                if (e.response.status === 500) {
+                // дописать
+                if(e.response.status === 500) {
+                    setInfo(e.response.data.info)
+                    setCode('Код 500!')
                     setImage(error500)
-                    setCode('Ошибка 500!')
-                    setText('эмитация ошибки на сервере')
-                    setInfo('ошибка 500 - обычно означает что что-то сломалось на сервере, например база данных)')
-                }
-                if (e.code === "ERR_NETWORK") {
-                    setImage(errorUnknown)
-                    setCode('Error!')
-                    setInfo('Network Error AxiosError')
+                    setText(e.response.data.errorText)
                 }
 
-            })
-            .finally(() => {
-                setIsLoad(false)
+                if(e.response.status === 400) {
+                    setInfo(e.response.data.info)
+                    setCode('Код 400!')
+                    setImage(error400)
+                    setText(e.response.data.errorText)
+                }
+
+                if(e.code === "ERR_NETWORK"){
+                    setInfo(e.name)
+                    setCode('Error!')
+                    setImage(errorUnknown)
+                    setText(e.message)
+                }
             })
     }
 
@@ -77,7 +77,8 @@ const HW13 = () => {
                         id={'hw13-send-true'}
                         onClick={send(true)}
                         xType={'secondary'}
-                        disabled={isLoad}
+                        // дописать
+                        disabled={info==='...loading'}
 
                     >
                         Send true
@@ -86,8 +87,8 @@ const HW13 = () => {
                         id={'hw13-send-false'}
                         onClick={send(false)}
                         xType={'secondary'}
-                        disabled={isLoad}
-
+                        // дописать
+                        disabled={info==='...loading'}
                     >
                         Send false
                     </SuperButton>
@@ -95,8 +96,8 @@ const HW13 = () => {
                         id={'hw13-send-undefined'}
                         onClick={send(undefined)}
                         xType={'secondary'}
-                        disabled={isLoad}
-
+                        // дописать
+                        disabled={info==='...loading'}
                     >
                         Send undefined
                     </SuperButton>
@@ -104,36 +105,35 @@ const HW13 = () => {
                         id={'hw13-send-null'}
                         onClick={send(null)} // имитация запроса на не корректный адрес
                         xType={'secondary'}
-                        disabled={isLoad}
-
+                        // дописать
+                        disabled={info==='...loading'}
                     >
                         Send null
                     </SuperButton>
                 </div>
 
-                {isLoad
-                    ? <Loader/>
-                    : <div className={s.responseContainer}>
-                        <div className={s.imageContainer}>
-                            {image && <img src={image} className={s.image} alt="status"/>}
-                        </div>
+                <div className={s.responseContainer}>
+                    <div className={s.imageContainer}>
+                        {image && <img src={image} className={s.image} alt="status"/>}
+                    </div>
 
-                        <div className={s.textContainer}>
-                            <div id={'hw13-code'} className={s.code}>
-                                {code}
-                            </div>
-                            <div id={'hw13-text'} className={s.text}>
-                                {text}
-                            </div>
-                            <div id={'hw13-info'} className={s.info}>
-                                {info}
-                            </div>
+                    <div className={s.textContainer}>
+                        <div id={'hw13-code'} className={s.code}>
+                            {code}
+                        </div>
+                        <div id={'hw13-text'} className={s.text}>
+                            {text}
+                        </div>
+                        <div id={'hw13-info'} className={s.info}>
+                            {info}
                         </div>
                     </div>
-                }
+                </div>
             </div>
         </div>
     )
 }
 
 export default HW13
+
+
