@@ -36,37 +36,38 @@ const HW13 = () => {
         axios
             .post(url, {success: x})
             .then((res) => {
-                setCode('Код 200!')
+                debugger
+                setCode(`Код ${res.status}!`)
+                setText(res.data.errorText)
+                setInfo(res.data.info)
                 setImage(success200)
-                setText('...всё ок)')
-                setInfo('код 200 - обычно означает что скорее всего всё ок)')
+
 
             })
             .catch((e) => {
-                // дописать
-                if(e.response.status === 500) {
-                    setInfo(e.response.data.info)
-                    setCode('Код 500!')
-                    setImage(error500)
-                    setText(e.response.data.errorText)
-                }
-
-                if(e.response.status === 400) {
-                    setInfo(e.response.data.info)
-                    setCode('Код 400!')
-                    setImage(error400)
-                    setText(e.response.data.errorText)
-                }
-
-                if(e.code === "ERR_NETWORK"){
-                    setInfo(e.name)
-                    setCode('Error!')
-                    setImage(errorUnknown)
-                    setText(e.message)
+                debugger
+                switch (e.response.status) {
+                    case 500:
+                        setCode(`Ошибка ${e.response.status}!`)
+                        setText(e.response.data.errorText)
+                        setInfo(e.response.data.info)
+                        setImage(error500)
+                        break;
+                    case 400:
+                        setCode(`Ошибка ${e.response.status}!`)
+                        setText(e.response.data.errorText)
+                        setInfo(e.response.data.info)
+                        setImage(error400)
+                        break;
+                    default:
+                        setCode('Error!')
+                        setText(e.message)
+                        setInfo(e.name)
+                        setImage(errorUnknown)
+                        break;
                 }
             })
     }
-
     return (
         <div id={'hw13'}>
             <div className={s2.hwTitle}>Homework #13</div>
