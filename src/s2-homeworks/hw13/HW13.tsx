@@ -51,14 +51,13 @@ const HW13 = () => {
                     setText(e.response.data.errorText)
                 }
 
-                if(e.response.status === 400) {
+                else if(e.response.status === 400) {
                     setInfo(e.response.data.info)
                     setCode('Код 400!')
                     setImage(error400)
                     setText(e.response.data.errorText)
                 }
-
-                if(e.code === "ERR_NETWORK"){
+                else{
                     setInfo(e.name)
                     setCode('Error!')
                     setImage(errorUnknown)
