@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import s2 from '../../s1-main/App.module.css'
 import s from './HW15.module.css'
-import axios from 'axios'
+import axios, {AxiosResponse} from 'axios'
 import SuperPagination from './common/c9-SuperPagination/SuperPagination'
 import {useSearchParams} from 'react-router-dom'
 import SuperSort from './common/c10-SuperSort/SuperSort'
@@ -14,6 +14,9 @@ import SuperSort from './common/c10-SuperSort/SuperSort'
 * 4 - сделать стили в соответствии с дизайном
 * 5 - добавить HW15 в HW5/pages/JuniorPlus
 * */
+type ResponseType = {
+    data: { techs: TechType[], totalCount: number }
+}
 
 type TechType = {
     id: number
@@ -28,6 +31,7 @@ type ParamsType = {
 }
 
 const getTechs = (params: ParamsType) => {
+    console.log(params)
     return axios
         .get<{ techs: TechType[], totalCount: number }>(
             'https://samurai.it-incubator.io/api/3.0/homework/test3',
@@ -48,11 +52,15 @@ const HW15 = () => {
     const [techs, setTechs] = useState<TechType[]>([])
 
     const sendQuery = (params: any) => {
+
         setLoading(true)
         getTechs(params)
-            .then((res) => {
+            .then((res: any) => {
                 // делает студент
-
+                console.log(res)
+                setTechs(res.data.techs)
+                setTotalCount(res.data.totalCount)
+                setLoading(false)
                 // сохранить пришедшие данные
 
                 //
@@ -62,10 +70,9 @@ const HW15 = () => {
     const onChangePagination = (newPage: number, newCount: number) => {
         // делает студент
 
-        // setPage(
-        // setCount(
-
-        // sendQuery(
+        setPage(newPage)
+        setCount(newCount)
+        sendQuery({page: +newPage, count: +newCount})
         // setSearchParams(
 
         //
@@ -74,8 +81,8 @@ const HW15 = () => {
     const onChangeSort = (newSort: string) => {
         // делает студент
 
-        // setSort(
-        // setPage(1) // при сортировке сбрасывать на 1 страницу
+        setSort(newSort)
+        setPage(1) // при сортировке сбрасывать на 1 страницу
 
         // sendQuery(
         // setSearchParams(
